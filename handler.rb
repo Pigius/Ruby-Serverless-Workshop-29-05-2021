@@ -1,3 +1,7 @@
+require 'httparty'
+
 def hello(event:, context:)
-  { statusCode: 200, body: JSON.generate({message: "OK"}) }
+  body = HTTParty.get("https://github.com").body
+
+  { statusCode: 200, body: body }
 end
