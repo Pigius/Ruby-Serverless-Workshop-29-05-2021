@@ -17,8 +17,23 @@ functions:
           method: POST
           path: /order
 
+resources:
+  Resources:
+    OrdersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: OrdersTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
 plugins:
   - serverless-ruby-layer
+  - serverless-pseudo-parameters
 
 custom:
   rubyLayer:

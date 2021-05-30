@@ -1,5 +1,8 @@
 {
   "devDependencies": {
-    "serverless-ruby-package": "^1.4.0"
+    "serverless-ruby-layer": "^1.5.0"
+  },
+  "dependencies": {
+    "serverless-pseudo-parameters": "^2.5.0"
   }
 }
