@@ -12,6 +12,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:PutItem
+        - dynamodb:Scan
       Resource:
         - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/OrdersTable
 functions:
@@ -21,6 +22,12 @@ functions:
       - http:
           method: POST
           path: /order
+  get:
+    handler: src/handlers/orders/get.get
+    events:
+      - http:
+          method: GET
+          path: /orders
 
 resources:
   Resources:
@@ -44,3 +51,4 @@ custom:
   rubyLayer:
     include_functions:
       - create
+      - get
