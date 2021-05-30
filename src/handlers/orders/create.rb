@@ -5,8 +5,6 @@ require 'date'
 require 'securerandom'
 require 'aws-sdk-dynamodb'
 
-dynamodb_client = Aws::DynamoDB::Client.new
-
 def create(event:, context:)
   body = JSON.parse(event["body"])
   name = body["name"]
@@ -19,12 +17,18 @@ def create(event:, context:)
     created_at: date
   }
 
-  table_item = {
-    table_name: 'OrdersTable',
-    item: order
-  }
-
-  dynamodb_client.put_item(table_item)
+  dynamodb_client.put_item(table_item(order))
 
   { statusCode: 201, body: order.to_json }
+end
+
+def table_item(item)
+  {
+    table_name: 'OrdersTable',
+    item: item
+  }
+end
+
+def dynamodb_client
+  Aws::DynamoDB::Client.new
 end
